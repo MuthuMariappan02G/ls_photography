@@ -1,39 +1,101 @@
-import React from 'react'
-import { Navbar, Container, Nav, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const NavbarTop: React.FC = () => {
+const NavigationBar: React.FC = () => {
   return (
-    <Navbar bg="light" expand="lg" sticky="top" className="shadow-sm">
-      <Container>
-        {/* Brand aligned left */}
-        <Navbar.Brand as={Link} to="/" className="fw-bold">
+    <Navbar
+      expand="lg"
+      variant="dark"
+      style={{
+        backgroundColor: "#000"
+      }}
+    >
+      <Container
+        fluid
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          style={{
+            fontWeight: "bold",
+            color: "white",
+            marginLeft: "0",
+            paddingLeft: "10px",
+            textDecoration: "none",
+          }}
+        >
           LS Photography
         </Navbar.Brand>
 
-        {/* Toggle (for mobile) */}
-        <Navbar.Toggle
-          aria-controls="ls-nav"
-          className="p-1"
-          style={{ transform: "scale(0.8)" }}
-        />
-
-        {/* Nav links aligned right */}
-        <Navbar.Collapse id="ls-nav" className="justify-content-end">
-          <Nav className="align-items-lg-end">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link href="#gallery">Gallery</Nav.Link>
-            <Nav.Link href="#services">Services</Nav.Link>
-            <Nav.Link href="#about">About</Nav.Link>
-            <Nav.Link href="#contact">Contact</Nav.Link>
-            <Button variant="primary" className="ms-3 d-none d-lg-inline">
-              Book a Session
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          style={{ justifyContent: "flex-end" }}
+        >
+          <Nav style={{ display: "flex", alignItems: "center" }}>
+            {[
+              { to: "/", label: "Home" },
+              { to: "/gallery", label: "Gallery" },
+              { to: "/services", label: "Services" },
+              { to: "/about", label: "About" },
+              { to: "/feedback", label: "Feedback" },
+              { to: "/contact", label: "Contact" },
+            ].map((link, index) => (
+              <Nav.Link
+                key={index}
+                as={Link}
+                to={link.to}
+                style={{
+                  color: "white",
+                  margin: "0 10px",
+                  textDecoration: "none",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.textDecoration = "underline")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.textDecoration = "none")
+                }
+              >
+                {link.label}
+              </Nav.Link>
+            ))}
+            <Button
+              style={{
+                backgroundColor: "#ffcc00",
+                color: "#000",
+                fontWeight: "600",
+                border: "none",
+                padding: "6px 16px",
+                borderRadius: "6px",
+                marginLeft: "10px",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+            >
+              <Link
+                to="/booking"
+                style={{
+                  color: "#000",
+                  textDecoration: "none",
+                  display: "block",
+                }}
+              >
+                Book Now
+              </Link>
             </Button>
+
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
-  )
-}
+  );
+};
 
-export default NavbarTop
+export default NavigationBar;
